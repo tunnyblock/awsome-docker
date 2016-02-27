@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for img in fluentd-elasticsearch elasticsearch_logging_discovery kibana
+for img in fluentd-elasticsearch hyper elasticsearch_logging_discovery kibana shadowsocks
 do
   echo "########    Building Image $img    #########"
   docker build -t "$DOCKER_USERNAME/$img" $img

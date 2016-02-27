@@ -1,0 +1,6 @@
+[submodule "vimagick-dockerfiles"]
+	path = vimagick-dockerfiles
+	url = https://github.com/vimagick/dockerfiles.git
+[submodule "jfrazelle-dockerfiles"]
+	path = jfrazelle-dockerfiles
+	url = https://github.com/jfrazelle/dockerfiles.git

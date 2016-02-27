@@ -1,0 +1,33 @@
+etcd:
+  image: gcr.io/google_containers/etcd:2.2.1
+  container_name: etcd
+  ports:
+    - "4001"
+  command: ['/usr/local/bin/etcd', '-advertise-client-urls=http://0.0.0.0:4001', '--listen-client-urls=http://0.0.0.0:4001', '--data-dir=/var/etcd/data']
+
+apiserver:
+  image: feisky/hyperkube
+  container_name: apiserver
+  ports:
+    - "8081:8080"
+  links:
+    - etcd
+  command: ["/hyperkube", "apiserver", "--service-cluster-ip-range=10.254.0.0/16", "--insecure-bind-address=0.0.0.0", "--cluster-name=kubernetes", "--etcd_servers=http://etcd:4001", "--v=2"]
+  environment:
+    - "affinity:container==*etcd*"
+
+controller:
+  image: feisky/hyperkube
+  command: ["/hyperkube", "controller-manager", "--address=0.0.0.0", "--master=http://apiserver:8080", "--v=2"]
+  links:
+    - apiserver
+  environment:
+    - "affinity:container==*apiserver*"
+
+scheduler:
+  image: feisky/hyperkube
+  command: ["/hyperkube", "scheduler", "--address=0.0.0.0", "--master=http://apiserver:8080", "--v=2"]
+  links:
+    - apiserver
+  environment:
+    - "affinity:container==*apiserver*"
