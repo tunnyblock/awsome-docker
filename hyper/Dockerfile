@@ -27,10 +27,13 @@ RUN cd /root && \
 	cp cbfstool /usr/local/bin/ && \
 	rm -rf /root/coreboot-4.2
 
+EXPOSE 80
 ENV GOPATH /root
+ENV STORAGE_DRIVER overlay
 ENV PATH /root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-RUN mkdir -p /var/lib/hyper/ /var/run/hyper /etc/hyper
+RUN mkdir -p /var/lib/hyper/ /var/run/hyper /etc/hyper && \
+  echo "StorageDriver=$STORAGE_DRIVER">>config
 COPY config /etc/hyper/config
 
 # qboot
