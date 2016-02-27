@@ -9,7 +9,6 @@ before_install:
   - sudo apt-get update && sudo apt-get install -y docker-engine
   - sudo service docker restart && sudo docker version
   - sudo docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - sudo -E ./build.sh
 
 script:
-  - sudo docker images
+  - sudo -E ./build.sh
