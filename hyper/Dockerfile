@@ -32,9 +32,9 @@ ENV GOPATH /root
 ENV STORAGE_DRIVER overlay
 ENV PATH /root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-RUN mkdir -p /var/lib/hyper/ /var/run/hyper /etc/hyper && \
-  echo "StorageDriver=$STORAGE_DRIVER">>config
+RUN mkdir -p /var/lib/hyper/ /var/run/hyper /etc/hyper
 COPY config /etc/hyper/config
+COPY start.sh /start.sh
 
 # qboot
 RUN cd /root && \
@@ -69,4 +69,4 @@ RUN cd ${GOPATH}/src/github.com/hyperhq && \
 	 rm -rf ${GOPATH}/src/github.com/hyperhq
 
 # Start Hyper
-CMD ["/usr/local/bin/hyperd", "--nondaemon", "--logtostderr", "-v=3"]
+CMD ["/start.sh"]
