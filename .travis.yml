@@ -8,11 +8,11 @@ matrix:
     - go: 1.4
 
 before_install:
-  - apt-get remove -y docker-engine
-  - curl -sSL https://get.docker.com/ | sh
-  - docker version
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - ./build.sh
+  - sudo apt-get remove -y docker-engine
+  - curl -sSL https://get.docker.com/ | sudo sh
+  - sudo docker version
+  - sudo docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - sudo ./build.sh
 
 script:
-  - docker images
+  - sudo docker images
