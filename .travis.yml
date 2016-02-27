@@ -1,13 +1,17 @@
 sudo: required
+dist: trusty
 
-language: ruby
+language: go
 
-services:
-  - docker
+matrix:
+  include:
+    - go: 1.4
 
 before_install:
+  - curl -sSL https://get.docker.com/ | sh
+  - docker version
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-
-script:
   - ./build.sh
 
+script:
+  - docker images
