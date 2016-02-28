@@ -21,7 +21,7 @@ EXPOSE $SERVER_PORT
 
 CMD ssserver -s "$SERVER_ADDR"              \
              -p "$SERVER_PORT"              \
-             -k "{PASSWORD"                 \
+             -k "$PASSWORD"                 \
              -m aes-256-cfb                 \
              -t "$TIMEOUT"                  \
              --workers "$WORKERS"           \
