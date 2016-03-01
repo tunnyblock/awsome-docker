@@ -1,0 +1,17 @@
+ceph:
+  image: ceph/demo
+  restart: always
+  container_name: ceph
+  ports:
+    - "6789"
+    - "6800"
+    - "6801"
+    - "6802"
+    - "6803"
+    - "6804"
+    - "6805"
+    - "80"
+    - "5000"
+  volumes:
+    - /etc/ceph:/etc/ceph
+    - /var/lib/ceph/osd:/var/lib/ceph/osd
