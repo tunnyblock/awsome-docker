@@ -1,0 +1,15 @@
+db:
+  image: 'mysql:5.5'
+  environment:
+    - MYSQL_PASS=password
+wordpress:
+  image: 'wordpress'
+  environment:
+    - DB_NAME=wordpress
+    - DB_PASS=password
+    - DB_USER=admin
+  links:
+    - db
+  ports:
+    - '80:80'
+

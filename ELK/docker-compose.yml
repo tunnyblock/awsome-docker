@@ -1,0 +1,32 @@
+elasticsearch:
+  image: 'elasticsearch:1.7'
+  ports:
+    - '9200:9200'
+    - '9300:9300'
+kibana:
+  image: 'kibana:4.1'
+  links:
+    - elasticsearch
+  ports:
+    - '5601:5601'
+logspout:
+  image: 'gliderlabs/logspout:latest'
+  command: 'syslog://logstash:5000'
+  environment:
+    - LOGSPOUT=ignore
+  links:
+    - logstash
+  volumes:
+    - '/var/run/docker.sock:/tmp/docker.sock'
+logstash:
+  image: 'logstash:1.5'
+  command: 'logstash -f /etc/logstash/conf.d/syslog.conf'
+  environment:
+    - LOGSPOUT=ignore
+  links:
+    - elasticsearch
+  ports:
+    - '5000:5000'
+  volumes:
+    - '/logstash/config:/etc/logstash/conf.d'
+
