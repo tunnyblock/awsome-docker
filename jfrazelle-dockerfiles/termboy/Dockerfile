@@ -1,0 +1,52 @@
+# VERSION:		  0.1
+# DESCRIPTION:	  Termboy in a container 
+# AUTHOR:		  Jessica Frazelle <jess@docker.com>
+# COMMENTS:
+#	This file describes how to build termboy
+#	in a container with all dependencies installed.
+#	Tested on Debian Jessie.
+# USAGE:
+#	# Download termboy Dockerfile
+#	wget http://raw.githubusercontent.com/jfrazelle/dockerfiles/master/termboy/Dockerfile
+#
+#	# Build termboy image
+#	docker build -t termboy .
+#
+#	docker run -it \
+#		--device /dev/snd \
+#		termboy
+#
+
+# Base docker image
+FROM debian:jessie
+MAINTAINER Jessica Frazelle <jess@docker.com>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+	ca-certificates \
+	console-setup \
+	console-setup-linux \
+	g++ \
+	git \
+	kbd \
+	libasound2-dev \
+	libncurses5-dev \
+	libncursesw5-dev \
+	make \
+	sudo \
+	--no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/dobyrch/termboy --depth 1 /src \
+	&& cd /src \
+	&& make \
+	&& make install || true
+
+
+# add games
+COPY games /games
+
+# Autorun termboy
+ENTRYPOINT ["/usr/bin/termboy"]

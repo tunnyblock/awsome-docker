@@ -1,0 +1,6 @@
+polipo:
+  image: vimagick/polipo
+  command: authCredentials=username:password
+  ports:
+    - "8123:8123"
+  restart: always
