@@ -1,0 +1,8 @@
+mongo:
+  image: mongo:3.2.3
+  container_name: mongo
+  restart: always
+  ports:
+    - "27017:27017"
+  volumes:
+    - /var/lib/mongodb:/data/db
