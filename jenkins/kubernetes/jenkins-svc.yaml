@@ -4,7 +4,6 @@ metadata:
   name: jenkins
   labels:
     app: jenkins
-    heritage: helm
 spec:
   ports:
   - port: 80

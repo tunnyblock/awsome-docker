@@ -4,7 +4,6 @@ metadata:
   name: jenkins
   labels:
     app: jenkins
-    heritage: helm
 spec:
   replicas: 1
   template:
@@ -14,6 +13,6 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: jenkins:1.642.1
+        image: feisky/jenkins
         ports:
         - containerPort: 8080

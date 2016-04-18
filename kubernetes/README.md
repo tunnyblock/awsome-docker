@@ -29,3 +29,5 @@ kubectl -s http://docker-server:8080 get nodes
 NAME           LABELS                                STATUS    AGE
 e5d19eb403d1   kubernetes.io/hostname=e5d19eb403d1   Ready     10m
 ```
+
+Reference http://kubernetes.io/docs/getting-started-guides/docker/
